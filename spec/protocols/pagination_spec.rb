@@ -15,11 +15,18 @@ module Afterburner
         Paginator.paginating_method.should == dummy
       end
 
-      it "wraps a paging method" do
+      before(:each) do
         DummyClass.stub!(:paginate)
         Paginator.paginating_method = 'paginate'
+      end
+      it "wraps a paging method" do
         DummyClass.should_receive(:paginate)
         DummyClass.paged
+      end
+
+      it "passes on all arguments to the pagination method" do
+        DummyClass.should_receive(:paginate).with(1, [], {})
+        DummyClass.paged(1, [], {})
       end
     end
   end

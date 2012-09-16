@@ -9,7 +9,7 @@ module Afterburner
     end
 
     def paged(*args)
-      self.send(@@paginating_method.to_sym, args)
+      self.send(@@paginating_method.to_sym, *args)
     end
   end
 end
