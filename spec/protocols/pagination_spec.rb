@@ -1,31 +1,22 @@
 require 'protocols/paginator'
-
-class DummyClass
-  extend Afterburner::Paginator
-end
+require File.expand_path('../../spec_helper', __FILE__)
 
 module Afterburner
   describe Paginator do
-    describe "interface" do
-      it "stores a reference to the pagination method" do
-        dummy = "dummy"
-        Paginator.paginating_method = dummy
-        Paginator.paginating_method.should == dummy
-      end
-
-      before(:each) do
-        DummyClass.stub!(:paginate)
-        Paginator.paginating_method = 'paginate'
-      end
-      it "wraps a paging method" do
-        DummyClass.should_receive(:paginate)
-        DummyClass.as_pages
-      end
-
-      it "passes on all arguments to the pagination method" do
-        DummyClass.should_receive(:paginate).with 1, [], {}
-        DummyClass.as_pages 1, [], {}
-      end
+    it_should_behave_like "protocols" do
+      let(:dummy_class) {
+        class DummyClass
+          extend Afterburner::Paginator
+        end
+      }
+      let(:other_dummy_class) {
+        class AnotherDummyClass
+          extend Afterburner::Paginator
+        end
+      }
+      let(:protocol) { ::Afterburner::Paginator }
+      let(:protocol_method) { :paginating_method }
+      let(:protocol_action_method) { :as_pages }
     end
   end
 end
