@@ -1,7 +1,7 @@
 module Afterburner
   # Wraps pagination so that users can swap out pagination models with the use
-  # of any one pagination plugin. At present, it only supports a single 
-  # pagination method, but it will pass along any arguments given to that 
+  # of any one pagination plugin. At present, it only supports a single
+  # pagination method, but it will pass along any arguments given to that
   # method.
   #
   # Simply set Afterburner::Pagination.paginating_method equal to the string
@@ -11,17 +11,25 @@ module Afterburner
   #
   #     Afterburner::Paginator.paginating_method = 'paginate'
   #     MyModel.where('field' => true).paged(:per_page => 10, :blah => false)
+  #
+  # You can also set paginating_method on the model itself to use a different
+  # paginator for just that model. For example:
+  #
+  #     MyModel.paginating_method = 'page'
+  #     MyModel.where(:field => true).paged("cats") # uses 'local' page method
+  #
+  # This won't interrupt other models' ability to use the default paginator.
   module Paginator
-    def self.paginating_method
-      @@paginating_method
+    class << self
+      attr_accessor :paginating_method
     end
-
-    def self.paginating_method=(paginator)
-      @@paginating_method = paginator
+    attr_accessor :paginating_method
+    def paginating_method
+      @paginating_method || Paginator.paginating_method
     end
 
     def paged(*args)
-      self.send(@@paginating_method.to_sym, *args)
+      send paginating_method, *args
     end
   end
 end

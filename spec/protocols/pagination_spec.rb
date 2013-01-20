@@ -2,8 +2,6 @@ require 'protocols/paginator'
 
 class DummyClass
   extend Afterburner::Paginator
-  def initialize
-  end
 end
 
 module Afterburner
