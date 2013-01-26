@@ -1,0 +1,2 @@
+module Afterburner
+end
