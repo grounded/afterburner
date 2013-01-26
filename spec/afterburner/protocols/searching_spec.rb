@@ -1,5 +1,5 @@
-require 'protocols/searcher'
-require File.expand_path('../../spec_helper', __FILE__)
+require 'afterburner/protocols/searcher'
+require 'spec_helper'
 
 module Afterburner
   describe Searcher do

@@ -1,5 +1,5 @@
-require 'protocols/paginator'
-require File.expand_path('../../spec_helper', __FILE__)
+require 'afterburner/protocols/paginator'
+require 'spec_helper'
 
 module Afterburner
   describe Paginator do
