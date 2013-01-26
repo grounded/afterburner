@@ -19,12 +19,12 @@ module Afterburner
       end
       it "wraps a paging method" do
         DummyClass.should_receive(:paginate)
-        DummyClass.paged
+        DummyClass.as_pages
       end
 
       it "passes on all arguments to the pagination method" do
-        DummyClass.should_receive(:paginate).with(1, [], {})
-        DummyClass.paged(1, [], {})
+        DummyClass.should_receive(:paginate).with 1, [], {}
+        DummyClass.as_pages 1, [], {}
       end
     end
   end

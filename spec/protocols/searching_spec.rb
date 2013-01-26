@@ -44,30 +44,30 @@ module Afterburner
 
         it "wraps a searching method" do
           DummyClass.should_receive :with_query
-          DummyClass.searcher
+          DummyClass.as_search_results
         end
 
-        it "passes on all arguments to the searcher method" do
+        it "passes on all arguments to the as_search_results method" do
           DummyClass.should_receive(:with_query).with 1, [], {}
-          DummyClass.searcher 1, [], {}
+          DummyClass.as_search_results 1, [], {}
         end
 
         context "with local override" do
           before do
-            Searcher.searching_method = :searcher_with_query
+            Searcher.searching_method = :as_search_results_with_query
           end
 
-          it "uses local searcher" do
+          it "uses local as_search_results" do
             DummyClass.should_receive :with_query
-            DummyClass.should_not_receive :searcher_with_query
-            Searcher.should_not_receive :searcher_with_query
+            DummyClass.should_not_receive :as_search_results_with_query
+            Searcher.should_not_receive :as_search_results_with_query
 
-            DummyClass.searcher 'cats'
+            DummyClass.as_search_results 'cats'
           end
 
-          it "doesn't override other model's searchers" do
-            AnotherDummyClass.should_receive(:searcher_with_query).with 'cats'
-            AnotherDummyClass.searcher 'cats'
+          it "doesn't override other model's as_search_resultss" do
+            AnotherDummyClass.should_receive(:as_search_results_with_query).with 'cats'
+            AnotherDummyClass.as_search_results 'cats'
           end
         end
       end
