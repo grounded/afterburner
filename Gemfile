@@ -1,6 +1,8 @@
 source :rubygems
 
-group :development, :test do
+group :test do
   gem 'rspec'
-  gem 'simplecov'
+  unless ENV['TRAVIS']
+    gem 'simplecov'
+  end
 end
