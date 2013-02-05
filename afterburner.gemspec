@@ -5,4 +5,6 @@ Gem::Specification.new do |s|
   s.summary = 'Turbo Rails!'
   s.authors = ["Philip Arndt", "Uģis Ozols", "Rob Yurkowski"]
   s.email = 'rob@yurkowski.net'
+
+  s.required_ruby_version = '>= 1.9.3' # that's right.
 end
