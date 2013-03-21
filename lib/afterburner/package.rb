@@ -1,0 +1,10 @@
+module Afterburner
+  VERSION       = '0.0.3'
+  AUTHORS       = ["The Afterburner Team"]
+  EMAILS        = ["info@afterburnercms.com"]
+  HOMEPAGE      = "https://github.com/grounded/"
+  SUMMARY       = "A framework for delivery-independent applications and hot-swappability."
+  DESCRIPTION   = SUMMARY
+
+  REQUIRED_RUBY_VERSION = '>= 1.9.3'
+end
