@@ -14,6 +14,6 @@ Gem::Specification.new do |s|
   s.require_paths         = ["lib"]
 
   s.files       = `git ls-files`.split($/)
-  s.test_files  = s.files.split.grep(%r{^(spec)/})
+  s.test_files  = s.files.grep(%r{^(spec)/})
 
 end
