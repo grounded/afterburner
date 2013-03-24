@@ -7,6 +7,14 @@ module Afterburner
       subject { BaseInteractor }
 
       it_behaves_like "a callable"
+
+      describe "instantiation" do
+        it "stores data" do
+          instance = subject.new("blah", {})
+          instance.send(:data).should == "blah"
+        end
+      end
+
     end
   end
 end

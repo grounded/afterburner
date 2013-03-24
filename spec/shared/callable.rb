@@ -1,24 +1,29 @@
 shared_examples "a callable" do
-  it "is not publicly instantiable" do
-    subject.new({}).should raise_error NoMethodError
-  end
 
-  describe "::call" do
-    it "returns with #to_response" do
-      mock = double "object"
-      mock.should_receive(:to_response)
-      subject.stub!(:new).and_return(mock)
-      subject.call({:stub => 'abc'})
+  describe "instantiation" do
+    it "merges options onto defaults" do
+      instance = subject.new("blah", {:params => "value"})
+      instance.send(:options).keys.should include(:params)
+    end
+
+    it "overwrites defaults with options" do
+      subject.any_instance.stub(:defaults).and_return({:param => "value"})
+      instance = subject.new("blah", {:params => "new value"})
+      instance.send(:options)[:params].should == "new value"
     end
   end
 
-  describe "#new" do
-    it "receives the data passed to call" do
-      args = %w(andaone andatwo)
-      instance = subject.send(:new, args)
-      instance.stub!(:to_response).and_return(nil)
-      subject.should_receive(:new).with(*args).and_return(instance)
-      subject.call(*args)
+  describe "invocation" do
+    it "raises an error if not implemented" do
+      instance = subject.new({}, {})
+      expect(lambda { instance.call }).to raise_error NotImplementedError
+    end
+  end
+
+  describe "defaults" do
+    it "should be empty if not implemented" do
+      instance = subject.new({}, {})
+      instance.send(:defaults).should be_empty
     end
   end
 end
