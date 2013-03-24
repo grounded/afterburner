@@ -1,3 +1,5 @@
+require 'afterburner/protocols'
+
 module Afterburner
   module Protocols
     # Wraps searching so that users can swap out searching models with the use
@@ -6,8 +8,8 @@ module Afterburner
     # method.
     #
     # Simply set Afterburner::Searcher.searching_method equal to the symbol name
-    # of your searching method, and then use the :as_search_results method for 
-    # queries. For example, if you are wrapping acts_as_indexed, the searching 
+    # of your searching method, and then use the :as_search_results method for
+    # queries. For example, if you are wrapping acts_as_indexed, the searching
     # method there is called 'with_query'. Thus:
     #
     #     Afterburner::Searcher.searching_method = :with_query
@@ -21,14 +23,7 @@ module Afterburner
     #
     # This won't interrupt other models' ability to use the default as_search_results.
     module Searcher
-      class << self
-        attr_accessor :searching_method
-      end
-
-      attr_accessor :searching_method
-      def searching_method
-        @searching_method || Searcher.searching_method
-      end
+      Protocols.define Searcher, :searching_method
 
       def as_search_results(*args)
         send searching_method, *args

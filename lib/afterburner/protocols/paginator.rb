@@ -1,3 +1,5 @@
+require 'afterburner/protocols'
+
 module Afterburner
   module Protocols
     # Wraps pagination so that users can swap out pagination models with the use
@@ -20,14 +22,9 @@ module Afterburner
     #     MyModel.where(:field => true).as_pages("cats") # uses 'local' page method
     #
     # This won't interrupt other models' ability to use the default paginator.
+
     module Paginator
-      class << self
-        attr_accessor :paginating_method
-      end
-      attr_accessor :paginating_method
-      def paginating_method
-        @paginating_method || Paginator.paginating_method
-      end
+      Protocols.define Paginator, :paginating_method
 
       def as_pages(*args)
         send paginating_method, *args
