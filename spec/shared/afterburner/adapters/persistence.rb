@@ -26,6 +26,13 @@ shared_examples_for "adapters/persistence" do
                       with(kind, :for => :this).and_return []
       dummy_class.new.search(:for => :this).should be_kind_of(Array)
     end
+
+    describe "#entity_kind" do
+      it "should raise an error if not implented" do
+        expect(lambda { dummy_class.new.send(:kind) }).to raise_error NotImplementedError
+      end
+    end
+
   end
 
 end

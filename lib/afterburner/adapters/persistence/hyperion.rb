@@ -27,8 +27,8 @@ module Afterburner
         end
 
         protected
-        def entity_kind
-          raise "entity_kind was not specified by this repository."
+        def kind
+          raise NotImplementedError, "#kind was not specified by this repository."
         end
       end
     end
