@@ -4,6 +4,11 @@ module Afterburner
       def define(protocol_module, protocol_method)
         protocol_module.class.send :attr_accessor, protocol_method
 
+        define_base_accessors protocol_module, protocol_method
+      end
+
+      private
+      def define_base_accessors(protocol_module, protocol_method)
         protocol_module.define_singleton_method(:extended) do |base|
           base.send :attr_accessor, protocol_method
 
