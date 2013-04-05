@@ -23,7 +23,6 @@ module Afterburner
       #   defaults, used to configure the object.
       # @return [Conductor] An instance of the conductor.
       def initialize(params, options = {})
-        self.defaults = Hash.new.freeze
         self.params   = params
         self.options  = defaults.merge(options)
 
@@ -41,7 +40,7 @@ module Afterburner
       end
 
       protected
-      attr_accessor :defaults, :params, :options, :repositories
+      attr_accessor :params, :options, :repositories
 
       # Passes data retrieved from somewhere down to Interactors and returns
       # something to be wrapped by #to_response -- by convention, an
@@ -54,6 +53,16 @@ module Afterburner
       def data
         raise NotImplementedError,
           "#data must be overridden when subclassing BaseConductor."
+      end
+
+      # Provides a frozen hash of sane defaults that can be overridden to change
+      # class behaviour. Highly useful for dependency injection to simplify
+      # testing. For instance, instead of hard-coding a repository object,
+      # specify a default for it so that you can pass in a mock when testing.
+      #
+      # @return [Hash] An associative array of defaults.
+      def defaults
+        Hash.new.freeze
       end
     end
   end
