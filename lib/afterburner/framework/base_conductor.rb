@@ -26,7 +26,7 @@ module Afterburner
         self.params   = params
         self.options  = defaults.merge(options)
 
-        self.repositories = OpenStruct.new(options[:repositories])
+        self.repositories = OpenStruct.new(self.options[:repositories])
       end
 
       # Returns data to the controller. Should begin the conductor's work
