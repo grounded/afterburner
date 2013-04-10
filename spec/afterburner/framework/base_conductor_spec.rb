@@ -6,6 +6,14 @@ module Afterburner
       subject { BaseConductor }
 
       describe "instantiation" do
+        it "uses defaults" do
+          subject.any_instance.should_receive(:defaults).and_return(
+            {:repositories => {:page => mock}}.freeze
+          )
+          instance = subject.new("blah", {})
+          instance.send(:repositories).should respond_to(:page)
+        end
+
         it "merges options onto defaults" do
           instance = subject.new("blah", {:pages => "value"})
           instance.send(:options).keys.should include(:pages)
