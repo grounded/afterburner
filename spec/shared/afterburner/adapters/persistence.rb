@@ -9,22 +9,22 @@ shared_examples_for "adapters/persistence" do
 
   context 'delegates' do
     specify '#store' do
-      receiving_class.should_receive(store_alias).once.
+      expect(receiving_class).to receive(store_alias).once.
                       with(:kind => kind, :foo => :bar).
                       and_return Hash.new
 
-      dummy_class.new.store(:foo => :bar).should be_kind_of(Hash)
+      expect(dummy_class.new.store(:foo => :bar)).to be_kind_of(Hash)
     end
 
     specify '#find' do
-      receiving_class.should_receive(find_alias).once.with(:key).and_return Hash.new
-      dummy_class.new.find(:key).should be_kind_of(Hash)
+      expect(receiving_class).to receive(find_alias).once.with(:key).and_return Hash.new
+      expect(dummy_class.new.find(:key)).to be_kind_of(Hash)
     end
 
     specify '#search' do
-      receiving_class.should_receive(search_alias).once.
+      expect(receiving_class).to receive(search_alias).once.
                       with(kind, :for => :this).and_return []
-      dummy_class.new.search(:for => :this).should be_kind_of(Array)
+      expect(dummy_class.new.search(:for => :this)).to be_kind_of(Array)
     end
 
     describe "#entity_kind" do

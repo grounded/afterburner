@@ -7,33 +7,33 @@ module Afterburner
 
       describe "instantiation" do
         it "uses defaults" do
-          subject.any_instance.should_receive(:defaults).and_return(
-            {:repositories => {:page => mock}}.freeze
+          expect_any_instance_of(subject).to receive(:defaults).and_return(
+            {:repositories => {:page => double}}.freeze
           )
           instance = subject.new("blah", {})
-          instance.send(:repositories).should respond_to(:page)
+          expect(instance.send(:repositories)).to respond_to(:page)
         end
 
         it "merges options onto defaults" do
           instance = subject.new("blah", {:pages => "value"})
-          instance.send(:options).keys.should include(:pages)
+          expect(instance.send(:options).keys).to include(:pages)
         end
 
         it "overwrites defaults with options" do
-          subject.any_instance.stub(:defaults).and_return({:pages => "value"})
+          allow_any_instance_of(subject).to receive(:defaults).and_return({:pages => "value"})
           instance = subject.new("blah", {:pages => "new value"})
-          instance.send(:options)[:pages].should == "new value"
+          expect(instance.send(:options)[:pages]).to eq("new value")
         end
 
         it "stores parameters" do
           instance = subject.new("blah", {})
-          instance.send(:params).should == "blah"
+          expect(instance.send(:params)).to eq("blah")
         end
 
         it "prettifies repositories" do
           repository = double "repository"
           instance = subject.new("blah", {:repositories => {:page => repository}})
-          instance.send(:repositories).should respond_to(:page)
+          expect(instance.send(:repositories)).to respond_to(:page)
         end
 
       end
@@ -48,7 +48,7 @@ module Afterburner
       describe "defaults" do
         it "should be empty if not implemented" do
           instance = subject.new({}, {})
-          instance.send(:defaults).should be_empty
+          expect(instance.send(:defaults)).to be_empty
         end
       end
 
