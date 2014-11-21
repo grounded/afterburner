@@ -6,5 +6,5 @@ module Afterburner
   SUMMARY       = "A framework for delivery-independent applications and hot-swappability."
   DESCRIPTION   = SUMMARY
 
-  REQUIRED_RUBY_VERSION = '>= 1.9.3'
+  REQUIRED_RUBY_VERSION = '>= 2.1.0'
 end

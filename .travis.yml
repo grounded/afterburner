@@ -16,7 +16,5 @@ notifications:
     rooms:
       - secure: "X5X39BTgXacSdc32F8mIjJKPqm5dZzmgZfJ14qYpJeMETTdA5JfByt2uCfU8\njJkkxT+XGWta0bSSlRIHQJO6pK26U94A95VYDX0jNuneKEnsoAsqJ6U0VY6v\nH5oxXMAZ2perP/FH9ZsPNR+ulyFfbMQCeGPJw5AXKZQqzf6qPOI="
 rvm:
-  - 2.0.0
-  - 1.9.3
-  - rbx-19mode
-  - jruby-19mode
+  - 2.1
+  - rbx-2
