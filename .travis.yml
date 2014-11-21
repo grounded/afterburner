@@ -18,3 +18,5 @@ notifications:
 rvm:
   - 2.1
   - rbx-2
+sudo: false
+cache: bundler
